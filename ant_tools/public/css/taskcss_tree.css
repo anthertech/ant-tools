@@ -1,0 +1,517 @@
+/* /* =========================================================
+   TASK TREE NODE
+   ========================================================= */
+
+/*
+    COLUMN 1
+    --------------------------------
+    Task name
+
+    COLUMN 2
+    --------------------------------
+    Frappe toolbar
+    Edit / Add Child / Delete / Add Multiple
+
+    COLUMN 3
+    --------------------------------
+    Progress / Avatar / Status
+
+    The toolbar column has a FIXED width.
+    This prevents progress/status from moving.
+*/
+
+.tree-node {
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        320px
+        300px;
+
+    grid-template-rows:
+        auto
+        auto
+        auto;
+
+    align-items: center;
+
+    width: 100%;
+
+    min-width: 0;
+}
+
+
+/* =========================================================
+   TASK NAME / TASK ID
+   ========================================================= */
+
+.tree-node > .tree-link {
+
+    grid-column: 1;
+
+    grid-row: 1;
+
+    width: 100%;
+
+    min-width: 0;
+
+    overflow: hidden;
+
+    white-space: nowrap;
+
+    text-overflow: ellipsis;
+}
+
+
+/* =========================================================
+   TASK LABEL
+   ========================================================= */
+
+.tree-node > .tree-link .tree-label {
+
+    display: block;
+
+    width: 100%;
+
+    min-width: 0;
+
+    overflow: hidden;
+
+    white-space: nowrap;
+
+    text-overflow: ellipsis;
+}
+
+
+/* =========================================================
+   FRAPPE TREE TOOLBAR
+   ========================================================= */
+
+/*
+    Edit
+    Add Child
+    Delete
+    Add Multiple
+
+    are placed in COLUMN 2.
+
+    Because column 2 is always 320px wide,
+    the appearance/disappearance of these buttons
+    will NOT move the progress/status column.
+*/
+
+.tree-node > .tree-node-toolbar {
+
+    grid-column: 2;
+
+    grid-row: 1;
+
+    width: 320px;
+
+    min-width: 320px;
+
+    max-width: 320px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: flex-start;
+
+    gap: 5px;
+
+    margin: 0;
+
+    padding: 0;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    flex-shrink: 0;
+}
+
+
+/* =========================================================
+   TOOLBAR BUTTONS
+   ========================================================= */
+
+.tree-node > .tree-node-toolbar .btn {
+
+    flex-shrink: 0;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   RIGHT SIDE
+   ========================================================= */
+
+/*
+    Progress + Avatar + Status
+
+    ALWAYS remains in COLUMN 3.
+*/
+
+.tree-node > .task-tree-right {
+
+    grid-column: 3;
+
+    grid-row: 1;
+
+    width: 300px;
+
+    min-width: 300px;
+
+    max-width: 300px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: flex-end;
+
+    gap: 15px;
+
+    margin: 0;
+
+    padding-left: var(--padding-sm);
+
+    padding-right: var(--padding-sm);
+
+    flex-wrap: nowrap;
+
+    white-space: nowrap;
+
+    box-sizing: border-box;
+
+    flex-shrink: 0;
+}
+
+
+/* =========================================================
+   DATES
+   ========================================================= */
+
+.tree-node > .task-tree-dates {
+
+    grid-column: 1 / -1;
+
+    grid-row: 2;
+
+    width: 100%;
+
+    min-width: 0;
+
+    margin-left: 24px;
+
+    margin-top: 1px;
+
+    font-size: 12px;
+
+    line-height: 16px;
+
+    color: var(--text-muted);
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   CHILD TASKS
+   ========================================================= */
+
+.tree-node > .tree-children {
+
+    grid-column: 1 / -1;
+
+    grid-row: 3;
+
+    width: 100%;
+
+    min-width: 0;
+}
+
+
+/* =========================================================
+   RIGHT SIDE CONTAINER
+   ========================================================= */
+
+.task-tree-right {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: flex-end;
+
+    gap: 15px;
+
+    width: 100%;
+
+    min-width: 0;
+
+    flex-wrap: nowrap;
+
+    white-space: nowrap;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   PROGRESS
+   ========================================================= */
+
+.task-tree-progress {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: flex-end;
+
+    gap: 7px;
+
+    width: 100px;
+
+    min-width: 100px;
+
+    flex-shrink: 0;
+}
+
+
+/* =========================================================
+   PROGRESS BAR OUTER
+   ========================================================= */
+
+.progress-bar-outer {
+
+    width: 60px;
+
+    height: 6px;
+
+    background: var(--gray-200);
+
+    border-radius: 5px;
+
+    overflow: hidden;
+
+    flex-shrink: 0;
+}
+
+
+/* =========================================================
+   PROGRESS BAR INNER
+   ========================================================= */
+
+.progress-bar-inner {
+
+    height: 100%;
+
+    border-radius: 5px;
+
+    transition: width 0.25s ease;
+}
+
+
+/* =========================================================
+   PERCENTAGE
+   ========================================================= */
+
+.task-tree-percent {
+
+    min-width: 30px;
+
+    font-size: 12px;
+
+    color: var(--text-muted);
+
+    text-align: left;
+
+    flex-shrink: 0;
+}
+
+
+/* =========================================================
+   AVATARS
+   ========================================================= */
+
+.task-tree-avatars {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: flex-end;
+
+    width: 60px;
+
+    min-width: 60px;
+
+    flex-shrink: 0;
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   STATUS
+   ========================================================= */
+
+.task-tree-status {
+
+    width: 110px;
+
+    min-width: 110px;
+
+    max-width: 110px;
+
+    text-align: center;
+
+    white-space: nowrap;
+
+    flex-shrink: 0;
+
+    justify-content: center;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   REMOVE STATUS DOT
+   ========================================================= */
+
+.task-tree-status::before {
+
+    display: none !important;
+}
+
+
+/* =========================================================
+   TREE CHILDREN
+   ========================================================= */
+
+.tree-node > ul.tree-children {
+
+    width: 100%;
+
+    min-width: 0;
+
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    .tree-node {
+
+        grid-template-columns:
+            minmax(0, 1fr)
+            250px
+            260px;
+
+    }
+
+
+    .tree-node > .tree-node-toolbar {
+
+        width: 250px;
+
+        min-width: 250px;
+
+        max-width: 250px;
+
+    }
+
+
+    .tree-node > .task-tree-right {
+
+        width: 260px;
+
+        min-width: 260px;
+
+        max-width: 260px;
+
+        gap: 8px;
+
+    }
+
+
+    .task-tree-progress {
+
+        width: 85px;
+
+        min-width: 85px;
+
+    }
+
+
+    .task-tree-avatars {
+
+        width: 45px;
+
+        min-width: 45px;
+
+    }
+
+
+    .task-tree-status {
+
+        width: 90px;
+
+        min-width: 90px;
+
+        max-width: 90px;
+
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE PHONE
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    .tree-node {
+
+        display: block;
+
+    }
+
+
+    .tree-node > .task-tree-right {
+
+        display: none;
+
+    }
+
+
+    .tree-node > .tree-node-toolbar {
+
+        display: none;
+
+    }
+
+
+    .tree-node > .task-tree-dates {
+
+        margin-left: 24px;
+
+    }
+
+} 

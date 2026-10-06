@@ -1,5 +1,6 @@
 import frappe
 
+from frappe.utils import sbool
 from frappe.query_builder import Field, functions
 
 
@@ -12,6 +13,8 @@ def get_children(
 	is_root=False,
 	**filters
 ):
+
+	is_root = sbool(is_root)
 
 	flist = [
 		["docstatus", "<", "2"]
@@ -32,12 +35,7 @@ def get_children(
 
 	else:
 
-		flist.append(
-			functions.IfNull(
-				Field("parent_task"),
-				""
-			) == ""
-		)
+		flist.append(["parent_task", "is", "not set"])
 
 
 	if project:
